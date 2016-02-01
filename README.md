@@ -5,7 +5,7 @@ The repository was tested in Debian Jessie with Docker version 1.9.1, build a34a
 
 1. Clone or unzip the repository into your computer.
 2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it somewhere.
-3. cd androiddocker
+3. cd androiddocker/androiddocker
 4. ./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip
 
 When the image build completes, a container is started from it and it starts the Android Studio environment.

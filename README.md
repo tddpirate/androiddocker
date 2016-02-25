@@ -1,16 +1,23 @@
 # androiddocker
 Android Studio in Docker container
 
-The repository was tested in Debian Jessie with Docker version 1.9.1, build a34a1d5 installed from https://apt.dockerproject.org/repo.
+The repository was tested in Debian Jessie with Docker version 1.10.1, build 9e83765 installed from https://apt.dockerproject.org/repo.
 
+## Installation
 1. Clone or unzip the repository into your computer.
 2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it somewhere.
-3. cd androiddocker/androiddocker
-4. ./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip
+3. `cd androiddocker/androiddocker`
+4. `./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip`
+5. The script auto-detects your uid/gid and the gids of `video` and `kvm` in your host system. You have the option of selecting different uid/gid for the developer.
+6. When the image build completes, a container is started from it and it starts the Android Studio environment.
 
-When the image build completes, a container is started from it and it starts the Android Studio environment.
-When you exit the Android Studio, the container stops execution.
-You can restart the container with androiddocker/start_androidstudio.sh
+## After installation
+* When you exit the Android Studio, the container stops execution.
+* You can restart the container with `androiddocker/start_androidstudio.sh`
 
-If the Android Studio does not work properly, check the gid of the kvm group on your PC. The Dockerfile assumes that it is 142.
-Check also the gid of the video group on your PC and inside the container. The Dockerfile assumes that they are the same.
+## Design considrations
+* The containers created from the image, built from the scripts in this repository, are meant to run only on the same machine on which the image was built. This is contrary to the general Docker philosophy. 
+* The image was designed to access the Android Studio and your project files from mounted host system directories, rather than keep them inside it. This way, you can upgrade the Android Studio without having to freeze the image, and use your favorite editor to edit your project files from the host system.
+
+## Acknowledgements
+Thanks to [@opyate](https://github.com/opyate) for his work on testing the scripts and giving feedback.

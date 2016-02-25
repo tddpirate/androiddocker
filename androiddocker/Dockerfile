@@ -94,7 +94,14 @@ RUN chmod a+r /etc/udev/rules.d/51-android.rules && \
    libxxf86vm1 \
    libgl1-mesa-glx \
    libatk-wrapper-java \
-   libatk-wrapper-java-jni \
+   libatk-wrapper-java-jni
+
+ADD .docker.uids_gids /tmp
+RUN . /tmp/.docker.uids_gids && addgroup --gid ${kvmgid} kvm && \
+   ( test "x`egrep ^video /etc/group|cut -d':' -f3`" = "x${videogid}" ; RC=$? ; \
+   if [ $RC -ne 0 ] ; then echo "Incompatible video gid, you will not be able to run emulator" ; exit 1 ; fi)
+
+RUN apt-get install -y --no-install-recommends \
    qemu-kvm \
    libgl1-mesa-dri libgl1-mesa-dev \
    libdrm-intel1 libdrm-nouveau2 libdrm-radeon1 \
@@ -103,11 +110,10 @@ RUN chmod a+r /etc/udev/rules.d/51-android.rules && \
     apt-get install -y --no-install-recommends libc6:i386 libncurses5:i386 libstdc++6:i386 && \
     echo do not do "rm -rf /var/lib/apt/lists/*" because we want to update once in a while
 
-RUN export uid=1000 gid=1000 gidkvm=142 && \
+RUN . /tmp/.docker.uids_gids && \
     echo "developer:x:${uid}:${gid}:Developer,,,:/AndroidStudio/home:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:${uid}:" >> /etc/group && \
-    addgroup --gid ${gidkvm} kvm2 && echo "kvm was created but with different gid" && \
-    adduser developer kvm2 && \
+    echo "developer:x:${gid}:" >> /etc/group && \
+    adduser developer kvm && \
     adduser developer video && \
     chmod 0660 /etc/sudoers && \
     echo "developer ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \

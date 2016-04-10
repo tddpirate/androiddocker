@@ -21,6 +21,7 @@ The scripts in the repository now build two Docker images. One is for running An
 
 ## Building the Android Cordova container
 If you want to build the Android Cordova container:
+
 1. Exit the Android Studio, closing the android-studio container.
 2. `cd androiddocker/androiddocker` if you are not already at the correct directory.
 3. `./build_androidcordova_image.sh`

@@ -1,3 +1,4 @@
 *~
 *.zip
+.docker.uids_gids
 .docker.xauth

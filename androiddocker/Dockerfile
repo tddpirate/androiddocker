@@ -121,4 +121,7 @@ RUN . /tmp/.docker.uids_gids && \
 
 USER developer
 ENV HOME=/AndroidStudio/home DISPLAY=:0 SHELL=/bin/bash
+ENV ANDROID_HOME=$HOME/Android/Sdk
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
 ENTRYPOINT $HOME/android-studio/bin/studio.sh

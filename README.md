@@ -1,7 +1,7 @@
 # androiddocker
 Android Studio in Docker container
 
-The repository was tested in Debian Jessie with Docker version 1.10.1, build 9e83765 installed from https://apt.dockerproject.org/repo, and with Docker version 1.10.3, build 20f81dd.
+Last time the repository was tested was in Debian Jessie with Docker version 1.11.0, build 4dc5990, installed from https://apt.dockerproject.org/repo.
 
 ## Two Docker Images
 
@@ -11,7 +11,7 @@ The scripts in the repository now build two Docker images. One is for running An
 1. Clone or unzip the repository into your computer.
 2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it somewhere.
 3. `cd androiddocker/androiddocker`
-4. `./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip`; when asked for image name, enter tddpirate/androidstudio:1.2 if you want to build also the Android Cordova image.
+4. `./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip`; when asked for image name, enter tddpirate/androidstudio:1.3 if you want to build also the Android Cordova image.
 5. The build_androidstudio_image.sh script auto-detects your uid/gid and the gids of `video` and `kvm` in your host system. You have the option of selecting different uid/gid for the developer.
 6. When the image build completes, a container (whose default name is android-studio) is started from it and it starts the Android Studio environment.
 
@@ -34,7 +34,7 @@ You can restart the container with `./start_androidcordova.sh`
 * The image was designed to access the Android Studio and your project files from mounted host system directories, rather than keep them inside it. This way, you can upgrade the Android Studio without having to freeze the image, and use your favorite editor to edit your project files from the host system.
 
 ## To be fixed in the future
-The script for building the tddpirate/androidcordova image currently expects the tddpirate/androidstudio image to have the tag 1.2. It will be fixed in the future if there is enough demand for the fix.
+The script for building the tddpirate/androidcordova image currently expects the tddpirate/androidstudio image to have the tag 1.3. It will be fixed in the future if there is enough demand for the fix.
 
 ## Acknowledgements
 Thanks to [@opyate](https://github.com/opyate) for his work on testing the scripts and giving feedback.

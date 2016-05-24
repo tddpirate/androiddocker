@@ -18,6 +18,7 @@ The scripts in the repository now build two Docker images. One is for running An
 ## After installation
 * When you exit the Android Studio, the container stops execution.
 * You can restart the container with `androiddocker/start_androidstudio.sh`
+* Ensure that you have the rules in ./51-android.rules also defined also in your host system's /etc/udev/rules.d - you may accomplish this by `sudo cat ./51-android.rules >> /etc/udev/rules.d/51-android.rules`
 
 ## Building the Android Cordova container
 If you want to build the Android Cordova container:
@@ -34,7 +35,8 @@ You can restart the container with `./start_androidcordova.sh`
 * The image was designed to access the Android Studio and your project files from mounted host system directories, rather than keep them inside it. This way, you can upgrade the Android Studio without having to freeze the image, and use your favorite editor to edit your project files from the host system.
 
 ## To be fixed in the future
-The script for building the tddpirate/androidcordova image currently expects the tddpirate/androidstudio image to have the tag 1.3. It will be fixed in the future if there is enough demand for the fix.
+1. The script for building the tddpirate/androidcordova image currently expects the tddpirate/androidstudio image to have the tag 1.3. It will be fixed in the future if there is enough demand for the fix.
+2. After exiting the android-cordova container, you need to manually stop it with `docker stop android-cordova`.
 
 ## Acknowledgements
 Thanks to [@opyate](https://github.com/opyate) for his work on testing the scripts and giving feedback.

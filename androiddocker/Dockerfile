@@ -119,6 +119,9 @@ RUN . /tmp/.docker.uids_gids && \
     echo "developer ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     chmod 0440 /etc/sudoers
 
+RUN sudo apt-get install -y --no-install-recommends \
+      git
+
 USER developer
 ENV HOME=/AndroidStudio/home DISPLAY=:0 SHELL=/bin/bash
 ENV ANDROID_HOME=$HOME/Android/Sdk

@@ -1,5 +1,5 @@
 # androiddocker
-Android Studio in Docker container
+Android Studio in a Docker container
 
 Last time the repository was tested was in Debian Jessie with Docker version 1.11.0, build 4dc5990, installed from https://apt.dockerproject.org/repo.
 

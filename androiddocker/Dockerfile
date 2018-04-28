@@ -122,6 +122,16 @@ RUN . /tmp/.docker.uids_gids && \
 RUN sudo apt-get install -y --no-install-recommends \
       git
 
+RUN sudo apt-get install -y --no-install-recommends \
+      libcurl3 curl && \
+    sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
+    sudo apt-get update && \
+    sudo apt-get install -y --no-install-recommends \
+      build-essential \
+      nodejs
+
+RUN sudo npm install -g uglify-js
+
 USER developer
 ENV HOME=/AndroidStudio/home DISPLAY=:0 SHELL=/bin/bash
 ENV ANDROID_HOME=$HOME/Android/Sdk

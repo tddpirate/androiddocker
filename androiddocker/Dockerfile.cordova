@@ -1,13 +1,5 @@
-FROM tddpirate/androidstudio:1.3
+FROM tddpirate/androidstudio:1.4
 MAINTAINER Omer Zak "w1@zak.co.il"
-RUN sudo apt-get install -y --no-install-recommends \
-      libcurl3 curl && \
-    sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
-    sudo apt-get update && \
-    sudo apt-get install -y --no-install-recommends \
-      build-essential \
-      nodejs
-
 RUN sudo npm install -g cordova
 
 USER developer

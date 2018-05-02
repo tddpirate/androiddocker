@@ -1,5 +1,8 @@
 .git
 .gitignore
-*.sh
+build_*.sh
+run_adb.sh
+# We want to use run_studio.sh
+start_*.sh
 README.txt
 tmp*

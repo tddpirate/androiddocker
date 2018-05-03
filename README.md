@@ -1,7 +1,21 @@
 # androiddocker
 Android Studio in a Docker container
 
-Last time the repository was tested was in Debian Jessie with Docker version 1.11.0, build 4dc5990, installed from https://apt.dockerproject.org/repo.
+Last time the repository was tested was in Debian Jessie with Docker version 17.05.0-ce, build 89658be, installed from https://apt.dockerproject.org/repo.
+
+## Version 0.3 updates
+1. The image is based upon Ubuntu 18.04 instead of Ubuntu 14.04.
+2. Android Studio is now started from a script which optionally keeps the Docker container running after closing Android Studio when it is necessary to exit Android Studio for upgrading it.
+3. The Cordova support is currently broken. I will fix it when I have the time and/or need for it.
+
+## How to keep the Docker container running for upgrading Android Studio
+1. `docker exec -it android-studio /bin/bash`
+2. Outside of the container: `touch androidprojects/upgrade` (or alternatively `touch /projects/upgrade` inside the container).
+3. Exit Android Studio.
+4. Run the Android Studio upgrade script.
+5. `ps ax` and find the PID of the process running `tail -f /dev/null`
+6. `kill $PID` to kill the above process. This will cause the container to exit.
+7. Next time you restart the container, you'll run the new version of Android Studio.
 
 ## Two Docker Images
 

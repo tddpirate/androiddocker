@@ -36,14 +36,15 @@ RUN . /tmp/.docker.uids_gids && \
 
 RUN sudo apt-get install -y --no-install-recommends \
       git curl && \
-    sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
+    sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
     sudo apt-get update && \
     sudo apt-get install -y --no-install-recommends \
       build-essential \
       nodejs && \
     sudo npm install -g uglify-js
 ADD 51-android.rules /etc/udev/rules.d
-RUN chmod a+r /etc/udev/rules.d/51-android.rules
+RUN chmod a+r /etc/udev/rules.d/51-android.rules && \
+    mkdir -p /home/developer
 ADD run_studio.sh /home/developer/run_studio.sh
 RUN chmod +x /home/developer/run_studio.sh
 

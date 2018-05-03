@@ -43,14 +43,13 @@ RUN sudo apt-get install -y --no-install-recommends \
       nodejs && \
     sudo npm install -g uglify-js
 ADD 51-android.rules /etc/udev/rules.d
-RUN chmod a+r /etc/udev/rules.d/51-android.rules && \
-    mkdir -p /home/developer
-ADD run_studio.sh /home/developer/run_studio.sh
-RUN chmod +x /home/developer/run_studio.sh
+RUN chmod a+r /etc/udev/rules.d/51-android.rules
+ADD run_studio.sh /home/run_studio.sh
+RUN chmod +x /home/run_studio.sh
 
 USER developer
 ENV HOME=/AndroidStudio/home DISPLAY=:0 SHELL=/bin/bash
 ENV ANDROID_HOME=$HOME/Android/Sdk
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
-ENTRYPOINT /home/developer/run_studio.sh
+ENTRYPOINT /home/run_studio.sh

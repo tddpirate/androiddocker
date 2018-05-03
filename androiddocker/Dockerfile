@@ -1,4 +1,4 @@
-FROM n3ziniuka5/ubuntu-oracle-jdk:14.04-JDK7u80
+FROM ubuntu:18.04
 MAINTAINER Omer Zak "w1@zak.co.il"
 
 # Before installing packages which might need kvmgid and video groups.
@@ -8,8 +8,13 @@ RUN . /tmp/.docker.uids_gids && addgroup --gid ${kvmgid} kvm && \
    if [ $RC -ne 0 ] ; then echo "Incompatible video gid, you will not be able to run emulator" ; exit 1 ; fi)
 
 RUN apt-get update && \
+# Source: https://stackoverflow.com/questions/44331836/apt-get-install-tzdata-noninteractive
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/Greenwich /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata && \
     apt-get install -y --no-install-recommends \
-      ubuntu-desktop
+      ubuntu-desktop sudo
 
 #RUN apt-get install -y --no-install-recommends \
 #   qemu-kvm \
@@ -30,7 +35,7 @@ RUN . /tmp/.docker.uids_gids && \
     chmod 0440 /etc/sudoers
 
 RUN sudo apt-get install -y --no-install-recommends \
-      git libcurl3 curl && \
+      git curl && \
     sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
     sudo apt-get update && \
     sudo apt-get install -y --no-install-recommends \
@@ -39,12 +44,12 @@ RUN sudo apt-get install -y --no-install-recommends \
     sudo npm install -g uglify-js
 ADD 51-android.rules /etc/udev/rules.d
 RUN chmod a+r /etc/udev/rules.d/51-android.rules
-ADD run_studio.sh /AndroidStudio/home/run_studio.sh
-RUN chmod +x /AndroidStudio/home/run_studio.sh
+ADD run_studio.sh /home/developer/run_studio.sh
+RUN chmod +x /home/developer/run_studio.sh
 
 USER developer
 ENV HOME=/AndroidStudio/home DISPLAY=:0 SHELL=/bin/bash
 ENV ANDROID_HOME=$HOME/Android/Sdk
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
-ENTRYPOINT /AndroidStudio/home/run_studio.sh
+ENTRYPOINT /home/developer/run_studio.sh

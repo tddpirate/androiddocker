@@ -58,8 +58,8 @@ xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 # Select uid/gid of developer, kvm and video
 DEV=`whoami`
-DEV_UID=`egrep ^$DEV /etc/passwd|cut -d':' -f3`
-DEV_GID=`egrep ^$DEV /etc/passwd|cut -d':' -f4`
+DEV_UID=`egrep ^$DEV: /etc/passwd|cut -d':' -f3`
+DEV_GID=`egrep ^$DEV: /etc/passwd|cut -d':' -f4`
 KVM_GID=`egrep ^kvm /etc/group|cut -d':' -f3`
 VIDEO_GID=`egrep ^video /etc/group|cut -d':' -f3`
 if [ "x$KVM_GID" == "x" ] ; then

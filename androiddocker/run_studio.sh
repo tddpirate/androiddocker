@@ -10,7 +10,7 @@
 echo To keep container running after closing Android Studio for
 echo upgrading it, perform: 'touch androidprojects/upgrade'
 echo before closing Android Studio.
-/AndroidStudio/home/android-studio/bin/studio.sh
+ANDROID_EMULATOR_USE_SYSTEM_LIBS=1 /AndroidStudio/home/android-studio/bin/studio.sh
 if [ -e projects/upgrade ] ; then
   # The user wishes to upgrade Android Studio outside of it.
   rm projects/upgrade

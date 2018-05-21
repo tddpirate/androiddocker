@@ -30,6 +30,7 @@ The scripts in the repository now build two Docker images. One is for running An
 6. When the image build completes, a container (whose default name is android-studio) is started from it and it starts the Android Studio environment.
 
 ## After installation
+* Ensure that the libvirtd daemon is running, for example by using `sudo systemctl enable libvirtd`
 * When you exit the Android Studio, the container stops execution.
 * You can restart the container with `androiddocker/start_androidstudio.sh`
 * Ensure that you have the rules in ./51-android.rules also defined also in your host system's /etc/udev/rules.d - you may accomplish this by `sudo cat ./51-android.rules >> /etc/udev/rules.d/51-android.rules`

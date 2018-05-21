@@ -6,6 +6,7 @@ ADD .docker.uids_gids /tmp
 RUN . /tmp/.docker.uids_gids && addgroup --gid ${kvmgid} kvm && \
    ( test "x`egrep ^video /etc/group|cut -d':' -f3`" = "x${videogid}" ; RC=$? ; \
    if [ $RC -ne 0 ] ; then echo "Incompatible video gid, you will not be able to run emulator" ; exit 1 ; fi)
+# We use also group libvirt but its gid need not be the same as on the host system.
 
 RUN apt-get update && \
 # Source: https://stackoverflow.com/questions/44331836/apt-get-install-tzdata-noninteractive
@@ -42,6 +43,17 @@ RUN sudo apt-get install -y --no-install-recommends \
       build-essential \
       nodejs && \
     sudo npm install -g uglify-js
+
+RUN sudo apt-get install -y --no-install-recommends \
+      firefox vim       \
+      bridge-utils      \
+      cpu-checker       \
+      libvirt-bin libvirt-clients libvirt-daemon-system \
+      qemu qemu-kvm     \
+      ubuntu-vm-builder \
+      virt-manager virtinst && \
+    adduser developer libvirt
+
 ADD 51-android.rules /etc/udev/rules.d
 RUN chmod a+r /etc/udev/rules.d/51-android.rules
 ADD run_studio.sh /home/run_studio.sh

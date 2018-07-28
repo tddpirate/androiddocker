@@ -21,6 +21,27 @@ Last time the repository was tested was in Debian Jessie with Docker version 17.
 
 The scripts in the repository now build two Docker images. One is for running Android Studio, and the other - for running Android Cordova builds.
 
+## Prepare for installation
+In order for the Android Emulator in Android Studio to run at hardware accelerated speeds, you need to ensure that your system has libvirt packages installed and that libvirtd daemon is running.
+
+1. In Debian based systems, install using:
+```
+sudo apt-get install qemu-kvm libvirt-daemon-system bridge-utils
+sudo adduser `id -un` libvirt
+sudo adduser `id -un` libvirt-qemu
+sudo adduser `id -un` kvm
+```
+2. Verify that libvirt is working: `virsh -c qemu:///system list`
+3. Ensure that the libvirtd daemon is running: `systemctl status libvirt`.  
+  If it is not running, enable it: `sudo systemctl enable libvirtd`.
+4. The following is not related to Android Emulator but will allow Android Studio to work with real devices connected to your computer via USB.  
+  Ensure that you have the rules in `./51-android.rules` defined also in your host system's `/etc/udev/rules.d`.  
+  You may accomplish this by `sudo cat ./51-android.rules >> /etc/udev/rules.d/51-android.rules`
+
+TODO:
+* Instructions for non-Debian systems.
+* Instructions for non-systemd systems.
+
 ## Installation
 1. Clone or unzip the repository into your computer.
 2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it somewhere.
@@ -30,10 +51,8 @@ The scripts in the repository now build two Docker images. One is for running An
 6. When the image build completes, a container (whose default name is android-studio) is started from it and it starts the Android Studio environment.
 
 ## After installation
-* Ensure that the libvirtd daemon is running, for example by using `sudo systemctl enable libvirtd`
 * When you exit the Android Studio, the container stops execution.
-* You can restart the container with `androiddocker/start_androidstudio.sh`
-* Ensure that you have the rules in ./51-android.rules also defined also in your host system's /etc/udev/rules.d - you may accomplish this by `sudo cat ./51-android.rules >> /etc/udev/rules.d/51-android.rules`
+* You can restart the container using: `androiddocker/start_androidstudio.sh`
 
 ## Building the Android Cordova container
 If you want to build the Android Cordova container:

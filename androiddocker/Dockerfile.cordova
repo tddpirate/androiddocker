@@ -1,4 +1,5 @@
-FROM tddpirate/androidstudio:1.4
+ARG ANDROID_STUDIO_IMAGE=tddpirate/androidstudio:1.4
+FROM $ANDROID_STUDIO_IMAGE
 MAINTAINER Omer Zak "w1@zak.co.il"
 RUN sudo npm install -g cordova
 

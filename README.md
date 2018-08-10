@@ -26,7 +26,7 @@ sudo adduser `id -un` libvirt-qemu
 sudo adduser `id -un` kvm
 ```
 2. Verify that libvirt is working: `virsh -c qemu:///system list`
-3. Ensure that the libvirtd daemon is running: `systemctl status libvirt`.  
+3. Ensure that the libvirtd daemon is running: `systemctl status libvirtd`.  
   If it is not running, enable it: `sudo systemctl enable libvirtd`.
 4. The following is not related to Android Emulator but will allow Android Studio to work with real devices connected to your computer via USB.  
   Ensure that you have the rules in `./51-android.rules` defined also in your host system's `/etc/udev/rules.d`.  
@@ -37,7 +37,7 @@ TODO:
 * Instructions for non-systemd systems.
 
 ### Actual installation
-1. Clone or unzip the repository into your computer.
+1. Clone or unzip this repository (tddpirate/androiddocker) into your computer.
 2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it somewhere.
 3. `cd androiddocker/androiddocker`
 4. `./build_androidstudio_image.sh yourzipfilesdirectory/android-studio-ide-*-linux.zip`; when asked for image name, enter tddpirate/androidstudio:1.3 if you want to build also the Android Cordova image.
@@ -58,10 +58,10 @@ If you want to build the Android Cordova container:
 5. You will be asked to select a name for the new image (Android Cordova). Accept the default by hitting ENTER.
 6. The image build process will last for several seconds.
 7. After it ends, you'll be prompted for a container name. Accept the default of android-cordova by hitting ENTER.
-8. The container is started provides you with a command line where you run the various `cordova` commands.
+8. The container is started, providing you with a command line where you run the various `cordova` commands.
 9. Create your Cordova projects in subdirectories of `/projects` inside the container.
 
-You can restart the container with `./start_androidcordova.sh`
+You can restart the container with `androiddocker/start_androidcordova.sh`
 
 ## Maintenance
 
@@ -71,7 +71,7 @@ Normally, the Android Studio container stops running when you exit Android Studi
 Therefore, the Android Studio container supports the following procedure to keep the container running as necessary to finish Android Studio upgrade.
 
 1. `docker exec -it android-studio /bin/bash`
-2. Outside of the container: `touch androidprojects/upgrade` (or alternatively `touch /projects/upgrade` inside the container).
+2. Outside of the container: `touch androiddocker/androidprojects/upgrade` (or alternatively `touch /projects/upgrade` inside the container).
 3. Exit Android Studio.
 4. Run the Android Studio upgrade script.
 5. `ps ax` and find the PID of the process running `tail -f /dev/null`

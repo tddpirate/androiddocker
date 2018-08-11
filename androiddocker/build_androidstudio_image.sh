@@ -88,7 +88,7 @@ echo "export uid=$DEV_UID gid=$DEV_GID videogid=$VIDEO_GID kvmgid=$KVM_GID" > $U
 
 # Actually build the image
 echo "Enter a name for the image:"
-read -ei "tddpirate/androidstudio" IMAGE_NAME
+read -ei "tddpirate/androidstudio:1.4" IMAGE_NAME
 docker build -t $IMAGE_NAME .
 
 echo "Running the image, select a name for the container:"

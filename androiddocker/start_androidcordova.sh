@@ -35,8 +35,6 @@ if [ "$RUNNING" != "false" ]; then
   exit 0
 fi
 
-# The container exists and is not running.
-docker restart $CONTAINER
-echo "The container $CONTAINER has been restarted"
-docker exec -it $CONTAINER /bin/bash
+## The container exists and is not running.
+docker start -ai $CONTAINER
 # End of start_androidcordova.sh

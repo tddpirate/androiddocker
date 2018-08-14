@@ -42,8 +42,8 @@ If necessary, edit the file `yourdir/androiddocker/androiddocker/51-android.rule
 Ensure that you have the rules in `yourdir/androiddocker/androiddocker/51-android.rules` defined also in a file in your host system's `/etc/udev/rules.d`. You may accomplish this by `sudo cat yourdir/androiddocker/androiddocker/51-android.rules >> /etc/udev/rules.d/51-android.rules`.
 
 ### Actual installation
-1. Clone or unzip this repository (tddpirate/androiddocker) into a directory in your computer. This directory is referred to as `yourdir`.
-2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it in another directory (referred to as `asdownload` below).
+1. Clone or unzip this repository (tddpirate/androiddocker) into a directory in your computer. This directory is referred to below (and above) as `yourdir`.
+2. Download Android Studio for Linux from http://developer.android.com/sdk/index.html and save it in another directory (referred to below as `asdownload`).
 3. `cd yourdir/androiddocker/androiddocker`
 4. `./build_androidstudio_image.sh asdownload/android-studio-ide-*-linux.zip`
 5. If this is not the first time you are installing, you will be asked if you want to rebuild the contents of `yourdir/androiddocker/androidstudio/home` which contains the Android Studio files. Usually you'll not want to rebuild the subdirectory's contents, so enter `no` and hit ENTER.
@@ -68,9 +68,9 @@ If you want to build the Android Cordova container:
 3. `./build_androidcordova_image.sh`
 4. A list of existing Android Studio images is shown (normally, there will be only one image) followed by request to confirm usage of the selected image. Hit ENTER.
 5. You will be asked to select a name for the new image (Android Cordova). Accept the default by hitting ENTER.
-6. The image build process will last for several seconds.
-7. After it ends, you'll be prompted for a container name. Accept the default of `android-cordova` by hitting ENTER.
-8. The container is started, providing you with a command line where you run the various `cordova` commands.
+6. Then you'll be prompted for a container name. Accept the default of `android-cordova` by hitting ENTER.
+7. The image and container build process will last for several seconds.
+8. When the image and container build process ends, the container is started, providing you with a command line where you run the various `cordova` commands.
 9. Create your Cordova projects in subdirectories of `/projects` (corresponding to `yourdir/androiddocker/androidprojects` outside the container).
 
 If the container was stopped, you can restart it by means of `yourdir/androiddocker/androiddocker/start_androidcordova.sh`.
@@ -96,9 +96,13 @@ Therefore, the Android Studio container supports the following procedure to keep
 1. Debian Stretch with Docker version 17.05.0-ce, build 89658be, installed from https://apt.dockerproject.org/repo.
 
 ### The following need to be fixed in the future:
-1. After exiting the android-cordova container, you need to manually stop it with `docker stop android-cordova`.
-2. Installation instructions for systems running a Linux distribution not based upon Debian.
-3. Installation instructions for systems without systemd.
+1. Installation instructions for systems running a Linux distribution not based upon Debian.
+2. Installation instructions for systems without systemd.
+
+### Version 0.4.2 updates
+1. Fix paths to allow the Android emulator to run properly in android-cordova.
+2. Modify android-cordova build script to ask all questions at beginning and then run unattended.
+3. Fix android-cordova restart method to get it to stop as soon as the user exits it.
 
 ### Version 0.4.1 updates
 1. Documentation was revised.

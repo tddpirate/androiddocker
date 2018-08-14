@@ -44,6 +44,8 @@ read -ei "$IMAGE" ANDROID_STUDIO_IMAGE
 # Actually build the image
 echo "Enter a name for the new image:"
 read -ei "tddpirate/androidcordova:${TAG}" NEW_IMAGE_NAME
+echo "Select also a name for the container:"
+read -ei "android-cordova" CONTAINER_NAME
 
 echo DOCKERFILE=${DOCKERFILE}
 echo NEW_IMAGE_NAME=${NEW_IMAGE_NAME}
@@ -52,8 +54,7 @@ echo "Starting to build the new image."
 
 docker build -f $DOCKERFILE -t $NEW_IMAGE_NAME --build-arg ANDROID_STUDIO_IMAGE=${ANDROID_STUDIO_IMAGE} .
 
-echo "Running the image, select a name for the container:"
-read -ei "android-cordova" CONTAINER_NAME
+echo "Running the image ${NEW_IMAGE_NAME}, as container ${CONTAINER_NAME}"
 docker run -ti \
            -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
            -v $CONTAINER_HOMEDIR:/AndroidStudio \

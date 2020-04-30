@@ -1,5 +1,9 @@
 # androiddocker - run Android Studio inside a Docker container
 
+## FUTURE DEPRECIATION
+
+You may want to consider using [Android Studio snap package](https://snapcraft.io/android-studio) instead of this project.
+
 ## When and why to install and run Android Studio inside a Docker container?
 1. The Linux version of Android Studio is tested by Google on Ubuntu 14.04 LTS.  
 To be on the safe side, you'll want to run it on Ubuntu as well, even if you do the rest of your work using a different Linux distribution.  
